@@ -1,0 +1,27 @@
+From: logger@station.example
+To: intake@hydro.example
+Subject: Daily water level (two attachments)
+Message-ID: <two-csv@station.example>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="mock-boundary-42"
+Date: Mon, 02 Nov 2026 00:05:00 +0000
+
+--mock-boundary-42
+Content-Type: text/plain; charset=utf-8
+
+Attached: daily water-level CSV.
+--mock-boundary-42
+Content-Type: text/csv; name="daily.csv"
+Content-Disposition: attachment; filename="daily.csv"
+Content-Transfer-Encoding: base64
+
+5pel5oql5Y+3LOermeWPtyxVVEPnp5Is5rC05L2NCkhZMjAyNjExMDEwMixTMDAyLDE3OTM1Nzc2
+MDAsMjA1MApIWTIwMjYxMTAxMDIsUzAwMiwxNzkzNTgxMjAwLDIwNTEK
+--mock-boundary-42
+Content-Type: text/csv; name="other.csv"
+Content-Disposition: attachment; filename="other.csv"
+Content-Transfer-Encoding: base64
+
+5pel5oql5Y+3LOermeWPtyxVVEPnp5Is5rC05L2NCkhZMjAyNjExMDEwMixTMDAyLDE3OTM1Nzc2
+MDAsMjA1MApIWTIwMjYxMTAxMDIsUzAwMiwxNzkzNTgxMjAwLDIwNTEK
+--mock-boundary-42--

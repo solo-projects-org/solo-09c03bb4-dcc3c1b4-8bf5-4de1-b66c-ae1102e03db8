@@ -1,0 +1,20 @@
+From: logger@station.example
+To: intake@hydro.example
+Subject: Daily water level (bad row)
+Message-ID: <bad-csv@station.example>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="mock-boundary-42"
+Date: Mon, 02 Nov 2026 00:05:00 +0000
+
+--mock-boundary-42
+Content-Type: text/plain; charset=utf-8
+
+Attached: daily water-level CSV.
+--mock-boundary-42
+Content-Type: text/csv; name="daily.csv"
+Content-Disposition: attachment; filename="daily.csv"
+Content-Transfer-Encoding: base64
+
+cmVwb3J0LHN0YXRpb24sdHMsbGV2ZWwKSFkyMDI2MTEwMTA0LFMwMDQsbm90LWEtbnVtYmVyLDEw
+Cg==
+--mock-boundary-42--

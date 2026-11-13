@@ -1,0 +1,60 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      uvicorn app.main:app --host 0.0.0.0 --port 8000
+    environment:
+      QC_DB_PATH: /data/qc.sqlite3
+      IMAP_HOST: mock-imap
+      IMAP_PORT: "1143"
+      IMAP_USE_SSL: "false"
+      IMAP_USER: hydro
+      IMAP_PASSWORD: hydropass
+      IMAP_MAILBOX: INBOX
+      IMAP_POLL_INTERVAL_SECONDS: "2"
+      IMAP_TIMEOUT_SECONDS: "10"
+      QC_WORKER_ENABLED: "true"
+      LOG_LEVEL: INFO
+    depends_on:
+      - mock-imap
+    ports:
+      - "8000:8000"
+    volumes:
+      - qc-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5)"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
+  mock-imap:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      python -m mock_imap
+      --host 0.0.0.0
+      --port 1143
+      --admin-host 0.0.0.0
+      --admin-port 8081
+      --seed-dir /app/mails
+    environment:
+      MOCK_IMAP_USER: hydro
+      MOCK_IMAP_PASSWORD: hydropass
+      MOCK_UID_VALIDITY: "1000"
+      LOG_LEVEL: INFO
+    ports:
+      - "8081:8081"
+      - "1143:1143"
+    restart: unless-stopped
+
+volumes:
+  qc-data:
